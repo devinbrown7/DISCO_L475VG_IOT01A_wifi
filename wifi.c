@@ -525,35 +525,24 @@ WIFI_Status_t WIFI_SaveSettings() {
 }
 
 WIFI_Status_t WIFI_ResetUserSpace() {
-    printf("WIFI_ResetUserSpace AAAA\n");
     WIFI_Disconnect();
-    printf("WIFI_ResetUserSpace BBBB\n");
     WIFI_Status_t ret = WIFI_STATUS_ERROR;
-    printf("WIFI_ResetUserSpace CCCC\n");
     if(ES_WIFI_ResetUserSpace(&EsWifiObj) == ES_WIFI_STATUS_OK)
     {
       ret = WIFI_STATUS_OK;
     }
-    printf("WIFI_ResetUserSpace DDDD\n");
     return ret;
 }
 
 WIFI_Status_t WIFI_GetCredentials(uint8_t *ssid, uint8_t *password, WIFI_Ecn_t *security) {
     WIFI_Status_t ret = WIFI_STATUS_ERROR;
-
-    printf("WIFI_GetCredentials AAAA\n");
-
     if(ES_WIFI_GetNetworkSettings(&EsWifiObj) == ES_WIFI_STATUS_OK)
     {
-        printf("WIFI_GetCredentials BBBB\n");
-
-        printf("WIFI_GetCredentials %s %s\n", EsWifiObj.NetSettings.SSID, EsWifiObj.NetSettings.pswd);
-
-       ssid = EsWifiObj.NetSettings.SSID;
-       password = EsWifiObj.NetSettings.pswd;
-       security = (WIFI_Ecn_t *)&EsWifiObj.NetSettings.Security;
-       ret = WIFI_STATUS_OK;
-       printf("WIFI_GetCredentials CCCC\n");
+        printf("WIFI_GetCredentials %s %s %d\n", EsWifiObj.NetSettings.SSID, EsWifiObj.NetSettings.pswd, EsWifiObj.NetSettings.Security);
+        strcpy((char *)ssid, (char *)EsWifiObj.NetSettings.SSID);
+        strcpy((char *)password, (char *)EsWifiObj.NetSettings.pswd);
+        *security = (WIFI_Ecn_t)EsWifiObj.NetSettings.Security;
+        ret = WIFI_STATUS_OK;
     }
 
     return ret;

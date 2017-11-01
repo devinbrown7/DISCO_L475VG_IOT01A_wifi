@@ -871,13 +871,11 @@ ES_WIFI_Status_t ES_WIFI_Disconnect(ES_WIFIObject_t *Obj)
 ES_WIFI_Status_t ES_WIFI_GetNetworkSettings(ES_WIFIObject_t *Obj)
 {
   ES_WIFI_Status_t ret;
-
   sprintf((char*)Obj->CmdData,"C?\r");
   ret = AT_ExecuteCommand(Obj, Obj->CmdData, Obj->CmdData);
-
   if(ret == ES_WIFI_STATUS_OK)
   {
-     AT_ParseConnSettings((char *)Obj->CmdData, &Obj->NetSettings);
+    AT_ParseConnSettings((char *)Obj->CmdData, &Obj->NetSettings);
   }
   return ret;
 }
@@ -1666,63 +1664,6 @@ ES_WIFI_Status_t ES_WIFI_ReceiveData(ES_WIFIObject_t *Obj, uint8_t Socket, uint8
     }
   }
   return ret;
-}
-
-ES_WIFI_Status_t ES_WIFI_SaveSettings(ES_WIFIObject_t *Obj)
-{
-    ES_WIFI_Status_t ret;
-
-    printf("ES_WIFI_SaveSettings AAAA\n");
-    sprintf((char*)Obj->CmdData,"Z3=1\r");
-    ret = AT_ExecuteCommand(Obj, Obj->CmdData, Obj->CmdData);
-    if(ret == ES_WIFI_STATUS_OK)
-    {
-        printf("ES_WIFI_SaveSettings AAAA\n");
-        sprintf((char*)Obj->CmdData,"CC=1\r");
-        printf("ES_WIFI_SaveSettings BBBB\n");
-        ret = AT_ExecuteCommand(Obj, Obj->CmdData, Obj->CmdData);
-        printf("ES_WIFI_SaveSettings CCCC\n");
-        if(ret == ES_WIFI_STATUS_OK)
-        {
-          printf("ES_WIFI_SaveSettings DDDD\n");
-          sprintf((char*)Obj->CmdData,"Z1\r");
-          printf("ES_WIFI_SaveSettings EEEE\n");
-          ret = AT_ExecuteCommand(Obj, Obj->CmdData, Obj->CmdData);
-          printf("ES_WIFI_SaveSettings FFFF\n");
-        }
-        printf("ES_WIFI_SaveSettings GGGG\n");
-        return ret;
-
-        // sprintf((char*)Obj->CmdData,"Z1\r");
-        // ES_WIFI_Status_t s = AT_ExecuteCommand(Obj, Obj->CmdData, Obj->CmdData);
-        // return s;
-    }
-}
-
-// sprintf((char*)Obj->CmdData,"Z4=%X:%X:%X:%X:%X:%X\r",mac[0],mac[1],mac[2],mac[3],mac[4],mac[5] );
-// ret = AT_ExecuteCommand(Obj, Obj->CmdData, Obj->CmdData);
-// if(ret == ES_WIFI_STATUS_OK)
-// {
-//   sprintf((char*)Obj->CmdData,"Z1\r");
-//   ret = AT_ExecuteCommand(Obj, Obj->CmdData, Obj->CmdData);
-// }
-// return ret;
-
-ES_WIFI_Status_t ES_WIFI_ResetUserSpace(ES_WIFIObject_t *Obj)
-{
-    ES_WIFI_Status_t ret;
-
-    printf("ES_WIFI_ResetUserSpace AAAA\n");
-    sprintf((char*)Obj->CmdData,"Z3=1\r");
-    ret = AT_ExecuteCommand(Obj, Obj->CmdData, Obj->CmdData);
-    if(ret == ES_WIFI_STATUS_OK)
-    {
-      printf("ES_WIFI_ResetUserSpace BBBB\n");
-      sprintf((char*)Obj->CmdData,"Z2\r");
-      ret = AT_ExecuteCommand(Obj, Obj->CmdData, Obj->CmdData);
-    }
-    printf("ES_WIFI_ResetUserSpace CCCC\n");
-    return ret;
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
