@@ -301,10 +301,6 @@ ES_WIFI_Status_t  ES_WIFI_RegisterBusIO(ES_WIFIObject_t *Obj, IO_Init_Func IO_In
                                                               IO_Delay_Func   IO_Delay,
                                                               IO_Send_Func    IO_Send,
                                                               IO_Receive_Func  IO_Receive);
-
-ES_WIFI_Status_t ES_WIFI_SaveSettings(ES_WIFIObject_t *Obj);
-ES_WIFI_Status_t ES_WIFI_ResetUserSpace(ES_WIFIObject_t *Obj);
-
 #ifdef __cplusplus
 }
 #endif

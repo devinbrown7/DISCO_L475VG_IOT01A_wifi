@@ -513,53 +513,18 @@ WIFI_Status_t WIFI_GetModuleName(char *ModuleName)
   }
   return ret;
 }
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-
-WIFI_Status_t WIFI_SaveSettings() {
-    WIFI_Status_t ret = WIFI_STATUS_ERROR;
-    if(ES_WIFI_SaveSettings(&EsWifiObj) == ES_WIFI_STATUS_OK)
-    {
-      ret = WIFI_STATUS_OK;
-    }
-    return ret;
-}
-
-WIFI_Status_t WIFI_ResetUserSpace() {
-    WIFI_Disconnect();
-    WIFI_Status_t ret = WIFI_STATUS_ERROR;
-    if(ES_WIFI_ResetUserSpace(&EsWifiObj) == ES_WIFI_STATUS_OK)
-    {
-      ret = WIFI_STATUS_OK;
-    }
-    return ret;
-}
 
 WIFI_Status_t WIFI_GetCredentials(uint8_t *ssid, uint8_t *password, WIFI_Ecn_t *security) {
-    WIFI_Status_t ret = WIFI_STATUS_ERROR;
-    if(ES_WIFI_GetNetworkSettings(&EsWifiObj) == ES_WIFI_STATUS_OK)
-    {
-        printf("WIFI_GetCredentials %s %s %d\n", EsWifiObj.NetSettings.SSID, EsWifiObj.NetSettings.pswd, EsWifiObj.NetSettings.Security);
-        strcpy((char *)ssid, (char *)EsWifiObj.NetSettings.SSID);
-        strcpy((char *)password, (char *)EsWifiObj.NetSettings.pswd);
-        *security = (WIFI_Ecn_t)EsWifiObj.NetSettings.Security;
-        ret = WIFI_STATUS_OK;
-    }
+  WIFI_Status_t ret = WIFI_STATUS_ERROR;
 
-    return ret;
+  if(ES_WIFI_GetNetworkSettings(&EsWifiObj) == ES_WIFI_STATUS_OK)
+  {
+    strcpy((char *)ssid, (char *)EsWifiObj.NetSettings.SSID);
+    strcpy((char *)password, (char *)EsWifiObj.NetSettings.pswd);
+    *security = (WIFI_Ecn_t)EsWifiObj.NetSettings.Security;
+    ret = WIFI_STATUS_OK;
+  }
+  return ret;
 }
 
-// typedef struct {
-//   uint8_t          SSID[ES_WIFI_MAX_SSID_NAME_SIZE + 1];
-//   uint8_t          pswd[ES_WIFI_MAX_PSWD_NAME_SIZE + 1];
-//   ES_WIFI_SecurityType_t Security;
-//   uint8_t          DHCP_IsEnabled;
-//   uint8_t          JoinRetries;
-//   uint8_t          IsConnected;
-//   uint8_t          AutoConnect;
-//   ES_WIFI_IPVer_t  IP_Ver;
-//   uint8_t          IP_Addr[4];
-//   uint8_t          IP_Mask[4];
-//   uint8_t          Gateway_Addr[4];
-//   uint8_t          DNS1[4];
-//   uint8_t          DNS2[4];
-// } ES_WIFI_Network_t;
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

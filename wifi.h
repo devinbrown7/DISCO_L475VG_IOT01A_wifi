@@ -183,8 +183,6 @@ WIFI_Status_t       WIFI_ModuleFirmwareUpdate(const char *url);
 WIFI_Status_t       WIFI_GetModuleID(char *Id);
 WIFI_Status_t       WIFI_GetModuleFwRevision(char *rev);
 WIFI_Status_t       WIFI_GetModuleName(char *ModuleName);
-WIFI_Status_t       WIFI_SaveSettings();
-WIFI_Status_t       WIFI_ResetUserSpace();
 WIFI_Status_t       WIFI_GetCredentials(uint8_t *ssid, uint8_t *password, WIFI_Ecn_t *security);
 #ifdef __cplusplus
 }
